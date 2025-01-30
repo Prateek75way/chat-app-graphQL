@@ -56,9 +56,7 @@ const resolvers = {
       return jwt.sign({ id: user.id }, 'your_secret_key', { expiresIn: '1h' });
     },
     sendMessage: async (_: any, { receiverId, content, media }: SendMessageArgs, { userId }: Context)=> {
-      if (!userId) {
-        throw new Error('Unauthorized');
-      }
+      
       const message = new Message({ sender: userId, receiver: receiverId, content, media });
       await message.save();
       pubsub.publish(MESSAGE_SENT, { messageSent: message, receiverId });

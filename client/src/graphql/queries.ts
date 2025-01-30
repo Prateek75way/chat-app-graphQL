@@ -50,3 +50,17 @@ export const MESSAGE_SENT_SUBSCRIPTION = gql`
     }
   }
 `;
+
+export const SEND_MESSAGE_MUTATION = gql`
+  mutation SendMessage($receiverId: ID!, $content: String, $media: String) {
+    sendMessage(receiverId: $receiverId, content: $content, media: $media) {
+      id
+      sender {
+        id
+        username
+      }
+      content
+      createdAt
+    }
+  }
+`;
